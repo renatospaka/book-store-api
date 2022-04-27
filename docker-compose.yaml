@@ -1,0 +1,29 @@
+version: "3.5"
+
+services:
+  app:
+    build: .
+    container_name: app_crud_fiber
+    tty: true
+    volumes:
+      - .:/go/app/
+    ports:
+      - 8001:8000
+    depends_on:
+      - db
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
+
+  db:
+    build: .docker/postgres
+    container_name: app_crud_fiber_db
+    restart: always
+    tty: true
+    ports: 
+      - 5400:5432
+    volumes:
+      - .docker/dbdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=essasenha
+      - POSTGRES_DB=crud_fiber
+      - POSTGRES_SCHEMA=crud_fiber
