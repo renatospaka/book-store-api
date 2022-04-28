@@ -8,7 +8,7 @@ services:
     volumes:
       - .:/go/app/
     ports:
-      - 8001:8000
+      - 3000:3000
     depends_on:
       - db
     extra_hosts:
