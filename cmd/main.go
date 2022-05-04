@@ -1,11 +1,12 @@
 package main
 
 import (
-    "log"
+	"log"
 
-    "github.com/gofiber/fiber/v2"
-    "github.com/renatospaka/go-fiber-api/pkg/common/config"
-    "github.com/renatospaka/go-fiber-api/pkg/common/db"
+	"github.com/gofiber/fiber/v2"
+	"github.com/renatospaka/go-fiber-api/pkg/books"
+	"github.com/renatospaka/go-fiber-api/pkg/common/config"
+	"github.com/renatospaka/go-fiber-api/pkg/common/db"
 )
 
 func main() {
@@ -15,12 +16,9 @@ func main() {
 	}
 
 	app := fiber.New()
-	db.Init(c.DBUrl)
-	app.Get("/", func(ctx *fiber.Ctx) error {
-		return ctx.Status(fiber.StatusOK).SendString(c.Port)
-	})
+	db := db.Init(c.DBUrl)
 
-	// books.RegisterRoutes(app, db)
+	books.RegisterRoutes(app, db)
 
 	app.Listen(c.Port)
 }

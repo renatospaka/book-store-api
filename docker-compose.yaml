@@ -4,6 +4,7 @@ services:
   app:
     build: .
     container_name: app_crud_fiber
+    restart: always
     tty: true
     volumes:
       - .:/go/app/
